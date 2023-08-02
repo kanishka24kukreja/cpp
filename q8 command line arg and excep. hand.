@@ -1,0 +1,43 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+void withoutwhitespace(const string& inputFileName, const string& outputFileName) {
+    ifstream inputfile("C:\\Users\\Nancy \\Desktop\\first.txt");
+    if (!inputfile.is_open()) {
+        throw runtime_error("Error opening input file: " + inputFileName);
+    }
+
+    ofstream outputfile("C:\\Users\\Nancy\\Desktop\\second.txt");
+    if (!outputfile.is_open()) {
+        inputfile.close();
+        throw runtime_error("Error opening output file: " + outputFileName);
+    }
+
+    char ch;
+    while (inputfile.get(ch)) {
+        if (ch != ' ' && ch != '\t' && ch != '\n' && ch != '\r') {
+            outputfile << ch;
+        }
+    }
+    inputfile.close();
+    outputfile.close();
+    cout << "File copied successfully!" << endl;
+}
+int main(int argc, char* argv[]) {
+    if (argc < 3) {
+        cout << "Usage: " << argv[0] << " <input_file> <output_file>" << endl;
+        return 1;
+    }
+    string inputFileName = argv[1];
+    string outputFileName = argv[2];
+    try {
+        withoutwhitespace(inputFileName, outputFileName);
+    } catch (const exception& e) {
+        cerr << "Error: " << e.what() <<endl;
+        return 1;
+    }
+    return 0;
+}
+
+
