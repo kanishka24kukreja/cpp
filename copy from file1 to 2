@@ -1,0 +1,19 @@
+#include <iostream>
+#include <fstream>
+
+using namespace std;
+int main(){
+	ifstream in;
+	ofstream out;
+	in.open("sample.txt");
+	out.open("sample2.txt");
+	string sampleStr;
+	while(in.eof()==0){
+		in>>sampleStr;
+		out<<sampleStr;
+	}
+	cout<<"string copied from sample.txt to sample2.txt without spaces!"<<endl;
+	in.close();
+	out.close();
+	return 0;
+	}
