@@ -1,0 +1,22 @@
+
+#include <iostream>
+#include <fstream>
+
+using namespace std;
+int main(){
+	ifstream in;
+
+	in.open("sample.txt");
+
+	string sampleStr;
+	int word_count=0;
+	while(in.eof()==0){
+		in>>sampleStr;
+	    word_count++;
+	}
+	cout<<"no. of words in file:";
+	cout<<word_count;
+	in.close();
+
+	return 0;
+	}
