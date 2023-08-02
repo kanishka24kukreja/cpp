@@ -1,0 +1,217 @@
+#include <iostream>
+#include<cmath>
+using namespace std;
+class Shape
+{
+protected:
+ static const float pi;
+ int dimension;
+public:
+ Shape(int);
+ ~Shape();
+ virtual void print()=0;
+ virtual float area()=0;
+};
+class TwoDim:public Shape
+{
+protected:
+ string name;
+public:
+ TwoDim(int dimension,string name):Shape(dimension){
+ this->name=name;
+ }
+ ~TwoDim();
+};
+class Triangle:public TwoDim
+{
+private:
+ int base;
+ int height;
+public:
+ Triangle(int,string,int,int);
+ ~Triangle();
+ float area();
+ void print();
+};
+Triangle::Triangle(int dimension,string name,int base ,int
+height):TwoDim(dimension,name)
+{
+ this->base=base;
+ this->height=height;
+}
+inline float Triangle::area(){
+ float area_2d = 0.5*base*height;
+ return area_2d;
+}
+void Triangle::print(){
+ cout<<"Dimension of the shape is: "<<dimension<<endl;
+ cout<<"Name of the shape is: "<<name<<endl;
+ cout<<"Area of the triangle is: "<<area()<<endl;
+}
+class Rectangle:public TwoDim
+{
+private:
+ float length;
+ float breadth;
+public:
+ Rectangle(int ,string,float,float);
+ ~Rectangle();
+ float area();
+ void print();
+};
+Rectangle::Rectangle(int dimension,string name,float
+length,float breadth):TwoDim(dimension,name)
+{
+ this->length=length;
+ this->breadth=breadth;
+}
+inline float Rectangle::area(){
+ float rec_area = length*breadth;
+ return rec_area;
+}
+void Rectangle::print(){
+ cout<<"Dimension of the shape is: "<<dimension<<endl;
+ cout<<"Name of the shape is: "<<name<<endl;
+ cout<<"Area of the Rectangle is: "<<area()<<endl;
+}
+class Circle:public TwoDim
+{
+private:
+ float radius;
+public:
+ Circle(int,string,float);
+ ~Circle();
+ float area();
+ void print();
+};
+Circle::Circle(int dimension,string name,float
+radius):TwoDim(dimension,name)
+{
+ this->radius=radius;
+}
+float Circle::area(){
+ float cir_area= pi*radius*radius;
+ return cir_area;
+}
+void Circle::print(){
+ cout<<"Dimension of the shape is: "<<dimension<<endl;
+ cout<<"Name of the shape is: "<<name<<endl;
+ cout<<"Area of the Circle is: "<<area()<<endl;
+}
+class ThreeDim:public Shape
+{
+protected:
+ string name;
+public:
+ ThreeDim(int dimension,string name):Shape(dimension){
+ this->name= name;
+ }
+ ~ThreeDim();
+};
+class Cube:public ThreeDim
+{
+private:
+ float side;
+public:
+ Cube(int ,string,float);
+ ~Cube();
+ float area();
+ void print();
+};
+Cube::Cube(int dimension,string name,float
+side):ThreeDim(dimension,name)
+{
+ this->side=side;
+}
+float Cube::area(){
+ float cube_area= side*side*side;
+ return cube_area;
+}
+void Cube::print(){
+ cout<<"Dimension of the shape is: "<<dimension<<endl;
+ cout<<"Name of the shape is: "<<name<<endl;
+ cout<<"Area of the Cube is: "<<area()<<endl;
+}
+class Cone:public ThreeDim
+{
+private:
+ float radius;
+ float height;
+public:
+ Cone(int,string,float,float);
+ ~Cone();
+ float area();
+ void print();
+};
+Cone::Cone(int dimension,string name,float radius,float
+height):ThreeDim(dimension,name)
+{
+ this->radius=radius;
+ this->height=height;
+}
+float Cone::area(){
+ float cone_area=
+pi*radius*(radius+sqrt((radius*radius)+(height*height)));
+ return cone_area;
+}
+void Cone::print(){
+ cout<<"Dimension of the shape is: "<<dimension<<endl;
+ cout<<"Name of the shape is: "<<name<<endl;
+ cout<<"Area of the Cone is: "<<area()<<endl;
+}
+class Sphere:public ThreeDim
+{
+private:
+ float radius;
+public:
+ Sphere(int ,string,float);
+ ~Sphere();
+ float area();
+ void print();
+};
+Sphere::Sphere(int dimension,string name,float
+radius):ThreeDim(dimension,name)
+{
+ this->radius=radius;
+}
+float Sphere::area(){
+ float sph_area= 4*pi*radius*radius*radius;
+ return sph_area;
+}
+void Sphere::print(){
+ cout<<"Dimension of the shape is: "<<dimension<<endl;
+ cout<<"Name of the shape is: "<<name<<endl;
+ cout<<"Area of the Sphere is: "<<area()<<endl;
+}
+Shape::Shape(int dimension){this->dimension=dimension;}
+Shape::~Shape(){}
+TwoDim::~TwoDim(){}
+ThreeDim::~ThreeDim(){}
+Triangle::~Triangle(){}
+Rectangle::~Rectangle(){}
+Circle::~Circle(){}
+Cube::~Cube(){}
+Cone::~Cone(){}
+Sphere::~Sphere(){}
+const float Shape::pi=3.14;
+int main(){
+ Triangle t1(2,"Triangle",5,3);
+ Rectangle r1(2,"Rectangle",5,7);
+ Circle c1(2,"Circle",7);
+ Cube cu1(3,"Cube",4);
+ Cone co1(3,"Cone",5,9);
+ Sphere s1(3,"Sphere",6);
+ Shape *fig[6];
+ fig[0]=&t1;
+ fig[1]=&r1;
+ fig[2]=&c1;
+ fig[3]=&cu1;
+ fig[4]=&co1;
+ fig[5]=&s1;
+ for (int i = 0; i < 6; i++)
+ {
+ cout<<endl;
+ fig[i]->print();
+ }
+ return 0;
+}
